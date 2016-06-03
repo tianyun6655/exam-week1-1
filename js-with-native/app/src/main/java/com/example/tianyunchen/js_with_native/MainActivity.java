@@ -17,37 +17,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import untils.FileUntils;
 
 public class MainActivity extends AppCompatActivity {
-    private final int READ_FROM_SB =1;
-    private final int READ_FROM_ASSETS=0;
-    private int read_method=READ_FROM_SB;
-    private String htmlPath;
+
     private WebView webView;
-    private File innerfile;
-    private String path;
-    private String key;
-    private String result;
-    private String info;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkReadWay();
         initView();
     }
 
-    private void checkReadWay()
-    {
-        innerfile = this.getFilesDir();
-        result = "";
-        key = "javascript.html";
-        BrowserFile(innerfile);
-        Log.d("MainAcitivty",read_method+"");
-    }
+
     private void initView()
     {
         webView = (WebView)findViewById(R.id.webView);
@@ -56,24 +45,13 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
         webView.addJavascriptInterface(new JsInterface(this),"AndroidWebView");
         webView.setWebChromeClient(new WebChromeClient());
-        if(read_method ==0)
-        {
-         readFromAsset();
-        }
-        else {
-            readFromSB();
-        }
+        webView.loadUrl("file:///"+this.getFilesDir().getAbsolutePath()+"javascript.html");
+
 
 
     }
 
-    private void readFromAsset(){
-        webView.loadUrl("file:///android_asset/javascript.html");
 
-    }
-    private void readFromSB(){
-       webView.loadUrl(result);
-    }
 
     private class JsInterface{
         private Context mContext;
@@ -88,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
            // Toast.makeText(mContext,name,Toast.LENGTH_LONG).show();
             if(name.contains("pdf"))
             {
-                    createAlert();
+                    createAlert(name);
             }
             else
             {
@@ -105,10 +83,11 @@ public class MainActivity extends AppCompatActivity {
         webView.loadUrl("javascript:showInfoFromJava('" + msg + "')");
     }
 
-    private void createAlert()
+    private void createAlert(String name)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Open PDF")
+        builder.setTitle(name)
+
                 .setPositiveButton("打开PDF文件", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -119,67 +98,6 @@ public class MainActivity extends AppCompatActivity {
            builder.show();
     }
 
-    public void BrowserFile(File fileold) {
-        if (key.equals("")) {
-            Toast.makeText(this, "The file name is not correct", Toast.LENGTH_LONG).show();
-        } else {
-            search(fileold);
-            if (result.equals("")) {
-                read_method = READ_FROM_ASSETS;
-            }
-        }
-    }
-    private void search(File fileold)
-
-    {
-
-        try{
-
-            File[] files=fileold.listFiles();
-
-            if(files.length>0)
-
-            {
-
-                for(int j=0;j<files.length;j++)
-
-                {
-
-                    if(!files[j].isDirectory())
-
-                    {
-
-                        if(files[j].getName().indexOf(key)> -1)
-
-                        {
-
-                            path += "\n" + files[j].getPath();
-                            result = info+path;
-                            //shuju.putString(files[j].getName().toString(),files[j].getPath().toString());
-
-                        }
-
-                    }
-
-                    else{
-
-                        this.search(files[j]);
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        catch(Exception e)
-
-        {
 
 
-
-        }
-
-    }
 }
