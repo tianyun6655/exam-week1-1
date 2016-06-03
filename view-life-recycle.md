@@ -3,22 +3,22 @@ Intfocus-exam1.1
 ##Activity Life Cycle
 **The methods For the life cyecle**
 
-                  -Activity Start
+                  - Activity Start
                        |
-                  -Oncreate()
+                  - Oncreate()
                        |
-                  -OnStart()
+                  - OnStart()
                        |
-                  -OnResume()
+                  - OnResume()
                        |
-                  -Acitivty Launch
+                  - Acitivty Launch
                        |*New Acitivty Start*
-                  -OnPause()
+                  - OnPause()
                        |*The Activity is alreay invisiable*
-                  -OnStop()
+                  - OnStop()
                        |
-                  -OnDestory()
+                  - OnDestory()
                        |
-                  -Activity Destory
+                  - Activity Destory
                   
 ##
