@@ -13,26 +13,40 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private final int READ_FROM_SB =1;
     private final int READ_FROM_ASSETS=0;
-    private int read_method=0;
+    private int read_method=READ_FROM_SB;
     private String htmlPath;
-   private WebView webView;
+    private WebView webView;
+    private File innerfile;
+    private String path;
+    private String key;
+    private String result;
+    private String info;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        checkReadWay();
         initView();
     }
 
-    private int checkReadWay()
+    private void checkReadWay()
     {
-        return 0;
+        innerfile = this.getFilesDir();
+        result = "";
+        key = "javascript.html";
+        BrowserFile(innerfile);
+        Log.d("MainAcitivty",read_method+"");
     }
     private void initView()
     {
@@ -46,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         {
          readFromAsset();
         }
+        else {
+            readFromSB();
+        }
 
 
     }
@@ -55,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void readFromSB(){
-
+       webView.loadUrl(result);
     }
 
     private class JsInterface{
@@ -100,5 +117,69 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
            builder.show();
+    }
+
+    public void BrowserFile(File fileold) {
+        if (key.equals("")) {
+            Toast.makeText(this, "The file name is not correct", Toast.LENGTH_LONG).show();
+        } else {
+            search(fileold);
+            if (result.equals("")) {
+                read_method = READ_FROM_ASSETS;
+            }
+        }
+    }
+    private void search(File fileold)
+
+    {
+
+        try{
+
+            File[] files=fileold.listFiles();
+
+            if(files.length>0)
+
+            {
+
+                for(int j=0;j<files.length;j++)
+
+                {
+
+                    if(!files[j].isDirectory())
+
+                    {
+
+                        if(files[j].getName().indexOf(key)> -1)
+
+                        {
+
+                            path += "\n" + files[j].getPath();
+                            result = info+path;
+                            //shuju.putString(files[j].getName().toString(),files[j].getPath().toString());
+
+                        }
+
+                    }
+
+                    else{
+
+                        this.search(files[j]);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        catch(Exception e)
+
+        {
+
+
+
+        }
+
     }
 }
