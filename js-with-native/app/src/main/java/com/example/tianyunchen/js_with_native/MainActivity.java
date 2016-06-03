@@ -1,6 +1,10 @@
 package com.example.tianyunchen.js_with_native;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.InstrumentationInfo;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
          readFromAsset();
         }
 
+
     }
 
     private void readFromAsset(){
@@ -63,8 +68,15 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         //Js call androidWebView will call this function
         public void showInfoFromJs(String name){
-            Toast.makeText(mContext,name,Toast.LENGTH_LONG).show();
-            Log.d("MainActivity","From JS");
+           // Toast.makeText(mContext,name,Toast.LENGTH_LONG).show();
+            if(name.contains("pdf"))
+            {
+                    createAlert();
+            }
+            else
+            {
+                Toast.makeText(mContext,name,Toast.LENGTH_LONG).show();
+            }
         }
 
 
@@ -74,5 +86,19 @@ public class MainActivity extends AppCompatActivity {
         String msg = ((EditText) findViewById(R.id.input_et)).getText().toString();
         //调用js中的函数：showInfoFromJava(msg)
         webView.loadUrl("javascript:showInfoFromJava('" + msg + "')");
+    }
+
+    private void createAlert()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Open PDF")
+                .setPositiveButton("打开PDF文件", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MainActivity.this,PDFActivity.class);
+                        startActivity(intent);
+                    }
+                });
+           builder.show();
     }
 }
