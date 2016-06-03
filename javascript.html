@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script LANGUAGE="JavaScript">
+        function  myFunction()
+        {
+            theFirstInput = document.getElementById("first_input");
+            theSecondInput = document.getElementById("second_input");
+            var inputValue = theFirstInput.value;
+            theFirstInput.value = "";
+            theSecondInput.value = inputValue;
+            //alert("I am clicke")
+
+        }
+    </script>
+</head>
+<body>
+   <input id="first_input" type="text"/>
+  <P><input id="second_input" type="text"/><P>
+  <P><button type="button" onclick="myFunction()">Click Me</button><P>
+</body>
+</html>
