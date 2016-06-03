@@ -2,6 +2,7 @@
 Intfocus-exam1.1
 ##Activity Life Cycle
 **The methods For the life cyecle**
+
                   -Activity Start
                      
                   -Oncreate()
@@ -12,3 +13,4 @@ Intfocus-exam1.1
                       
                   -Acitivty Launch
                   
+##
