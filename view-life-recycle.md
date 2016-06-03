@@ -4,13 +4,13 @@ Intfocus-exam1.1
 **The methods For the life cyecle**
 
                   -Activity Start
-                     
+                      |
                   -Oncreate()
-                   
+                      |
                   -OnStart()
-                    
+                      |
                   -OnResume()
-                      
+                      |
                   -Acitivty Launch
                   
 ##
