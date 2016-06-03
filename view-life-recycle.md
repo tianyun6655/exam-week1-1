@@ -34,3 +34,4 @@ Intfocus-exam1.1
   - 由于系统资源发生改变，系统配置重新改变的时候，Activity异常退出之后，例如横屏转竖屏的时候，Activity 会先调用 OnsaveInstanceState()来存储当天的状态信息，会重新创建一个Activity 调用OnrestoreInsatanceState（）来恢复之前信息
   - 由于内存不足，内存泄漏造成的Activity突然销毁的话，会按照之前的Activity的优先级来重新创建
 ####
+ 
