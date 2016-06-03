@@ -12,9 +12,9 @@ Intfocus-exam1.1
                   - OnResume()
                        |
                   - Acitivty Launch
-                       |*New Acitivty Start*
+                       |**New Acitivty Start**
                   - OnPause()
-                       |*The Activity is alreay invisiable*
+                       |**The Activity is alreay invisiable**
                   - OnStop()
                        |
                   - OnDestory()
